@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Frequency Analyzer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .upload-container {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        input[type="submit"] {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        input[type="submit"]:hover {
+            background: #2980b9;
+        }
+        
+        .error {
+            color: #e74c3c;
+            background: #fde8e8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .result-box {
+            background: #e8f4fc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .result-box h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .word-highlight {
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .count-highlight {
+            font-weight: bold;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word Frequency Analyzer</h1>
+    
+    <div class="upload-container">
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+        
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file-upload">Select a text file:</label>
+                <input type="file" name="file" id="file-upload" required>
+            </div>
+            <input type="submit" value="Analyze Text">
+        </form>
+    </div>
+    
+    {% if most_common %}
+    <div class="result-box">
+        <h2>Analysis Result</h2>
+        <p>The most frequent word is <span class="word-highlight">"{{ most_common[0] }}"</span>, 
+        appearing <span class="count-highlight">{{ most_common[1] }} time{% if most_common[1] != 1 %}s{% endif %}</span>.</p>
+    </div>
+    {% endif %}
+</body>
+</html>
